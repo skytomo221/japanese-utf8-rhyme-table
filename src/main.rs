@@ -1,3 +1,5 @@
+// See https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=7ed82c3ddaa89baa307465401fb11328
+
 use encoding::all::ISO_2022_JP;
 use encoding::{EncoderTrap, Encoding};
 use wana_kana::is_kanji::is_kanji;
