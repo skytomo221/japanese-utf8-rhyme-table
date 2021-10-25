@@ -7,4 +7,5 @@ version = "0.1.0"
 
 [dependencies]
 encoding = "0.2.33"
-wana_kana = "2.0"
+unicode-blocks = "0.1.3"
+unicode-general-category = "0.4.0"
