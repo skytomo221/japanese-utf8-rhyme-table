@@ -7,7 +7,7 @@ use unicode_blocks::{
 };
 use unicode_general_category::{get_general_category, GeneralCategory};
 
-fn can_encode_jis_code(c: char) -> bool {
+fn is_japanese_kanji(c: char) -> bool {
     ISO_2022_JP
         .encode(&c.to_string(), EncoderTrap::Strict)
         .is_ok()
@@ -16,12 +16,12 @@ fn can_encode_jis_code(c: char) -> bool {
 fn main() {
     for rhyme in 0x80..=0xBF {
         print!("rhyme: xx xx {:x?}: ", rhyme);
-        for i in 0x30..=0x9F {
-            for j in [0, 1, 2, 3] {
-                let c = char::from_u32(i * 0x100 + j * 0x40 + (rhyme - 0x80)).unwrap();
+        for b1 in 0x30..=0x9F {
+            for b2 in [0, 1, 2, 3] {
+                let c = char::from_u32(b1 * 0x100 + b2 * 0x40 + (rhyme - 0x80)).unwrap();
                 let block = find_unicode_block(c).unwrap();
                 if get_general_category(c) != GeneralCategory::Unassigned
-                    && (can_encode_jis_code(c)
+                    && (is_japanese_kanji(c)
                         || block == HIRAGANA
                         || block == KATAKANA
                         || (block == ENCLOSED_CJK_LETTERS_AND_MONTHS
